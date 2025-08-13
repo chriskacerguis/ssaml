@@ -1,0 +1,21 @@
+idp:
+  entity_id: "http://localhost:3000/metadata"
+  sso_url:   "http://localhost:3000/sso"
+  slo_url:   "http://localhost:3000/slo"     # ← NEW
+
+service_providers:
+  - key: "acme"
+    entity_id: "https://acme.example.com/metadata"
+    audience:  "https://acme.example.com/metadata"
+    acs:
+      - binding: "post"
+        url: "https://acme.example.com/acs"
+    # SP-initiated SLO endpoint (optional but recommended if you want a full round trip)
+    slo:
+      - binding: "redirect"
+        url: "https://acme.example.com/slo"
+    want_assertions_signed: true
+    want_message_signed:   false
+    nameid_format: "urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress"
+    allowed_groups:
+      - "cn=SAML-Users,ou=Groups,dc=example,dc=org"
